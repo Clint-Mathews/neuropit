@@ -16,3 +16,50 @@ The project should support multiple interchangeable agents so the same environme
 Jev can additionally operate as an AI difficulty director that modifies environmental difficulty without directly controlling either player.
 
 The entire project should be runnable and testable locally on an Apple Silicon Mac, initially targeting Mac M1.
+
+## High-Level Architecture
+
+                   ┌─────────────────┐
+                   │   Tournament    │
+                   │    Runner       │
+                   └────────┬────────┘
+                            │
+                            ▼
+                    ┌──────────────┐
+                    │  Go Engine   │
+                    │              │
+                    │ Pong Physics │
+                    │ Score        │
+                    │ Game State   │
+                    └──────┬───────┘
+                           │
+               observations│actions
+                           │
+              ┌────────────┴────────────┐
+              ▼                         ▼
+       ┌──────────────┐          ┌──────────────┐
+       │   Agent A    │          │   Agent B    │
+       └──────────────┘          └──────────────┘
+
+### Possible agents:
+
+- Random
+- Rules
+- Human
+- Fly Brain
+- Jev
+
+### Additional:
+
+                   Game Metrics
+                       │
+                       ▼
+                  ┌──────────┐
+                  │   Jev    │
+                  │ Director │
+                  └────┬─────┘
+                       │
+                difficulty changes
+                       │
+                       ▼
+                   Go Engine
